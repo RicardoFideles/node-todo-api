@@ -13,7 +13,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 
     //deleteMany
     /*
-    db.collection('Todos').deleteMany({text:'Eat lunch'}).then((result) => {
+    db.collection('Users').deleteMany({name:'Ricardo'}).then((result) => {
         console.log(JSON.stringify(result, undefined, 2));
     }, (err) => {
         if (err) {
@@ -34,13 +34,16 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     */
 
     //findOneAndDelete
-     db.collection('Todos').findOneAndDelete({text:'Walk to do'}).then((result) => {
+    /*
+     db.collection('Users').findOneAndDelete({name:'Charles'}).then((result) => {
         console.log(result);
     }, (err) => {
         if (err) {
             return console.log('Unable to insert todo', err);
         }
     });
+
+
 
     //db.close();
 });
