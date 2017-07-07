@@ -41,7 +41,7 @@ app.get('/todos/:id', (req, res) => {
     Todo.findById(id).then((todo) => {
         res.send({todo});
     }, (e) => {
-        res.status(400).send(e);
+        res.status(400).send({error : "Something went wrong try again later."});
     })
 
 });
