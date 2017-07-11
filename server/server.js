@@ -47,7 +47,26 @@ app.get('/todos/:id', (req, res) => {
     }, (e) => {
         res.status(400).send({error : "Something went wrong try again later."});
     })
+});
 
+
+app.delete('/todos/:id', (req, res) => {
+    var id = req.params.id;
+
+    console.log('aqui');
+
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    Todo.findByIdAndRemove(id).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+        res.send({todo});
+    }, (e) => {
+        res.status(400).send({error : "Something went wrong try again later."});
+    });
 });
 
 app.listen(port, () => {
