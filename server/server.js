@@ -1,3 +1,5 @@
+require('./config/config');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
@@ -92,7 +94,7 @@ app.patch('/todos/:id', (req, res) => {
     }, (e) => {
         res.status(400).send({error : "Something went wrong try again later."});
     });
-    
+
 });
 
 app.listen(port, () => {
