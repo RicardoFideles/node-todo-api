@@ -110,6 +110,15 @@ app.post('/users', (req, res) => {
 });
 
 app.get('/users/me', authenticate, (req, res) => {
+    var body = _.pick(req.body,['email', 'password']);
+    user.findByCredentials(body.email, body.password).then ((user) => {
+        res.send(user);
+    }).catch((e) => {
+        res.status(400).send();
+    });
+});
+
+app.post('/user/login', (req, res) => {
     res.send(req.user);
 });
 
