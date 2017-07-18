@@ -12,7 +12,7 @@ var {authenticate} = require('./middleware/authenticate');
 
 var app = express();
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3600;
 
 app.use(bodyParser.json());
 

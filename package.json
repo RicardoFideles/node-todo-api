@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha server/**/*.test.js",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && nyc mocha server --recursive",
     "test-watch": "nodemon --exec \"npm test\""
   },
   "engine": {
@@ -22,11 +22,42 @@
     "lodash": "^4.17.4",
     "mongodb": "^2.2.29",
     "mongoose": "^4.11.1",
+    "sinon-mongoose": "^2.0.2",
     "validator": "^8.0.0"
   },
   "devDependencies": {
     "expect": "^1.20.2",
     "mocha": "^3.4.2",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "chai": "^4.0.2",
+    "istanbul": "^0.4.5",
+    "mocha-simple-html-reporter": "^1.0.1",
+    "nyc": "^11.0.3",
+    "sinon": "^2.3.5",
+    "rewire": "^2.5.2"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 60,
+    "statements": 0,
+    "functions": 0,
+    "branches": 0,
+    "include": [
+      "server/**/*.js"
+    ],
+    "exclude": [
+      "server/test/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "cache": false,
+    "all": true
   }
 }
