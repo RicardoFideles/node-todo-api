@@ -1,8 +1,7 @@
 const expect = require('expect');
 const request = require('supertest');
-// const rewire = require('rewire');
-// const sinon = require('sinon');
-//const sinonmongoose = require('sinon-mongoose');
+const rewire = require('rewire');
+const sinon = require('sinon');
 
 const { app } = require('./../server');
 const { Todo } = require('./../models/todo');
@@ -16,9 +15,6 @@ const {todos, polulateTodos, users, populateUsers} = require('./seed/seed');
 
 beforeEach(populateUsers);
 beforeEach(polulateTodos);
-
-
-
 
 describe('POST /todos', () => {
     it('should create a new todo', (done) => {
@@ -56,27 +52,7 @@ describe('POST /todos', () => {
                 }).catch((e) => done(e));
             });
     });
-});
 
-describe('GET /todos with error', () => {
-
-    // var Todo = {
-    //     find : expect.createSpy()
-    // }
-    // app.__set__('Todo', Todo);
-
-    // it('should return 400 erro', (done) => {
-
-    //      var spy = expect.createSpy();
-
-    //     // request(app)
-    //     //     .get('/todos')
-    //     //     .expect(400)
-    //     //     .expect((res) => {
-    //     //         expect(res.body).toEqual({});
-    //     //     })
-    //     //     .end(done);
-    // });
 });
 
 describe('GET /todos', () => {
@@ -88,18 +64,7 @@ describe('GET /todos', () => {
                 expect(res.body.todos.length).toBe(2);
             })
             .end(done);
-    });
-
-    
-
-        // // var TodoMock = sinon.mock(Todo);
-
-        // // TodoMock
-        // //     .reject();
-
-        // app.__set__('Todo', Todo);
-
-       
+    });  
 });
 
 describe('GET /todos/:id', () => {
@@ -282,7 +247,7 @@ describe('GET /users/me', () => {
         var email = users[0].email;
         var password = '123mnb!';
 
-        
+
         request(app)
             .post('/users')
             .send({email, password})
@@ -293,3 +258,57 @@ describe('GET /users/me', () => {
 
     
 });
+
+describe('POST /users/login', () => {
+    it('should login user and return auth token', (done) => {
+        request(app)
+            .post('/users/login')
+            .send({
+                email: users[1].email,
+                password : users[1].password
+            })
+            .expect(200)
+            .expect((res) => {
+                expect(res.headers['x-auth']).toExist();
+            })
+            .end((err, res) => {
+                if (err) {
+                    return done(err);
+                }
+                User.findById(users[1]._id).then((res)=> {
+                    expect(user.tokens[0]).toInclude({
+                        access : 'auth',
+                        token : res.headers['x-auth']
+                    });
+                    done();
+                }).catch((e) => done());
+            });
+    });
+    it('should reject invalid login', (done) => {
+        request(app)
+            .post('/users/login')
+            .send({
+                email: users[1].email,
+                password : 123
+            })
+            .expect(400)
+            .expect((res) => {
+                expect(res.headers['x-auth']).toNotExist();
+            })
+            .end(done);
+    });
+
+    it('should reject invalid login', (done) => {
+        request(app)
+            .post('/users/login')
+            .send({
+                email: 'bla@gmail.com',
+                password : 123
+            })
+            .expect(400)
+            .expect((res) => {
+                expect(res.headers['x-auth']).toNotExist();
+            })
+            .end(done);
+    });
+})
