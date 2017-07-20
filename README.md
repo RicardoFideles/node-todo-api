@@ -1,9 +1,11 @@
-npm install
+# Instructions
 
+npm install
 npm run test-watch
 
+## Json for test and development env
 json config :
-
+```
 {
     "test" : {
         "PORT" : "",
@@ -16,7 +18,7 @@ json config :
         "JWT_SECRET" : ""
     }
 }
-
-
-if deploy to heroku
+```
+### heroku
+if deploy to 
 heroku config:set JWT_SECRET: yoursecretkey
