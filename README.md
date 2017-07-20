@@ -24,7 +24,7 @@ json config :
 ```
 ## Heroku
 
-###if deploy to heroku<br />
+### if deploy to heroku
 
 heroku create <br />
 git push heroku master <br />
