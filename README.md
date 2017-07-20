@@ -22,6 +22,9 @@ json config :
     }
 }
 ```
-### heroku
+### Heroku
 if deploy to 
+heroku create <br />
+git push heroku master <br />
+heroku config <br />
 heroku config:set JWT_SECRET: yoursecretkey
