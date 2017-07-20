@@ -22,9 +22,9 @@ json config :
     }
 }
 ```
-### Heroku
+## Heroku
 
-####if deploy to heroku<br />
+###if deploy to heroku<br />
 
 heroku create <br />
 git push heroku master <br />
