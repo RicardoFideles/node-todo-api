@@ -1,6 +1,9 @@
 # Instructions
 
+### Run server
 npm install
+
+### Run tests
 npm run test-watch
 
 ## Json for test and development env
